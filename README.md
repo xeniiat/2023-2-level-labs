@@ -81,7 +81,7 @@
 
 ## Ресурсы
 
-1. [Таблица успеваемости](TBD)
+1. [Таблица успеваемости](https://docs.google.com/spreadsheets/d/1mx9N7tmkaWjwK0h4oNnKFspjTheNVoDd)
 2. [Инструкция по запуску unit тестов](./docs/public/tests.md)
 3. [Инструкция по подготовке к прохождению курса](./docs/public/starting_guide_ru.md)
 4. [Часто задаваемые вопросы](./docs/public/FAQ.md)
