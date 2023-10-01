@@ -33,7 +33,7 @@ def calculate_frequencies(tokens: list[str] | None) -> dict[str, float] | None:
         if not isinstance(letter, str):
             return None
     for letter in tokens:
-            freq_dic[letter] = (1 if letter not in freq_dic else freq_dic[letter]+1)
+        freq_dic[letter] = (1 if letter not in freq_dic else freq_dic[letter]+1)
     for letter in freq_dic.keys():
         freq_dic[letter] /= len(tokens)
     return freq_dic
@@ -49,6 +49,12 @@ def create_language_profile(language: str, text: str) -> dict[str, str | dict[st
     :param text: a text
     :return: a dictionary with two keys – name, freq
     """
+    language_profile = {}
+    if not isinstance(text, str) or not isinstance(language, str):
+        return None
+    language_profile["name"] = language
+    language_profile["freq"] = calculate_frequencies(tokenize(text))
+    return language_profile
 
 
 def calculate_mse(predicted: list, actual: list) -> float | None:
