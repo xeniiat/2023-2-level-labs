@@ -34,7 +34,7 @@ def calculate_frequencies(tokens: list[str] | None) -> dict[str, float] | None:
             return None
     for letter in tokens:
         freq_dic[letter] = (1 if letter not in freq_dic else freq_dic[letter]+1)
-    for letter in freq_dic.keys():
+    for letter in freq_dic:
         freq_dic[letter] /= len(tokens)
     return freq_dic
 
@@ -69,8 +69,8 @@ def calculate_mse(predicted: list, actual: list) -> float | None:
     if len(predicted) != len(actual):
         return None
     total_number = 0
-    for i in range(len(actual)):
-        total_number += (actual[i] - predicted[i])**2
+    for index, value in enumerate(actual):
+        total_number += (value - predicted[index])**2
     mse = total_number / len(predicted)
     return mse
 
@@ -120,11 +120,11 @@ def detect_language(
     difference_1 = compare_profiles(unknown_profile, profile_1)
     difference_2 = compare_profiles(unknown_profile, profile_2)
     if difference_1 < difference_2:
-        return str(profile_1["name"])
+        return profile_1["name"]
     if difference_1 > difference_2:
-        return str(profile_2["name"])
+        return profile_2["name"]
     if difference_1["name"] == difference_2["name"]:
-        return str([profile_1["name"], profile_2["name"]].sort()[0])
+        return [profile_1["name"], profile_2["name"]].sort()[0]
 
 
 def load_profile(path_to_file: str) -> dict | None:
