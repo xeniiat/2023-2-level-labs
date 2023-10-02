@@ -52,11 +52,10 @@ def create_language_profile(language: str, text: str) -> dict[str, str | dict[st
     language_profile = {}
     if not isinstance(text, str) or not isinstance(language, str):
         return None
-    language_profile["name"] = language
-    language_profile["freq"] = calculate_frequencies(tokenize(text))
+    frequencies = calculate_frequencies(tokenize(text))
     if not isinstance(calculate_frequencies(tokenize(text)), dict):
         return None
-    return language_profile
+    return {"name": language, "freq": frequencies}
 
 
 def calculate_mse(predicted: list, actual: list) -> float | None:
