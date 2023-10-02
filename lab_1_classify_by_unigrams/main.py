@@ -119,12 +119,12 @@ def detect_language(
         return None
     difference_1 = compare_profiles(unknown_profile, profile_1)
     difference_2 = compare_profiles(unknown_profile, profile_2)
-    if difference_1 < difference_2:
-        return profile_1["name"]
-    if difference_1 > difference_2:
-        return profile_2["name"]
-    if difference_1["name"] == difference_2["name"]:
-        return [profile_1["name"], profile_2["name"]].sort()[0]
+    if isinstance(difference_1, float) and isinstance(difference_2, float):
+        if difference_1 < difference_2:
+            return profile_1["name"]
+        if difference_1 > difference_2:
+            return profile_2["name"]
+    return [profile_1["name"], profile_2["name"]].sort()[0]
 
 
 def load_profile(path_to_file: str) -> dict | None:
