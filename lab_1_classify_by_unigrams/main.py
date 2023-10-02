@@ -64,6 +64,18 @@ def calculate_mse(predicted: list, actual: list) -> float | None:
     :param actual: a list of actual values
     :return: the score
     """
+    if not isinstance(predicted, list) or not isinstance(actual, list):
+        return None
+    if len(predicted) != len(actual):
+        return None
+    total_number = 0
+    for i in range(len(actual)):
+        total_number += (actual[i] - predicted[i])**2
+    mse = total_number / len(predicted)
+    return mse
+
+
+
 
 
 def compare_profiles(
@@ -76,8 +88,20 @@ def compare_profiles(
     :param profile_to_compare: a dictionary of a profile to compare the unknown profile to
     :return: the distance between the profiles
     """
-
-
+    if not isinstance(unknown_profile, dict) or not isinstance(profile_to_compare, dict):
+        return None
+    if "name" not in unknown_profile or "freq" not in unknown_profile \
+        or "name" not in profile_to_compare or "freq" not in profile_to_compare:
+        return None
+    all_letters = list(unknown_profile["freq"].keys()) + list(profile_to_compare["freq"].keys())
+    all_letters = set(all_letters)
+    language_1 = []
+    language_2 = []
+    for letter in all_letters:
+        language_1.append(unknown_profile["freq"].get(letter, 0))
+        language_2.append(profile_to_compare["freq"].get(letter, 0))
+    difference = calculate_mse(language_1, language_2)
+    return difference
 def detect_language(
         unknown_profile: dict[str, str | dict[str, float]],
         profile_1: dict[str, str | dict[str, float]],
@@ -90,6 +114,17 @@ def detect_language(
     :param profile_2: a dictionary of a known profile
     :return: a language
     """
+    if not isinstance(unknown_profile, dict) or not isinstance(profile_1, dict)\
+        or not isinstance(profile_2, dict):
+        return None
+    difference_1 = compare_profiles(unknown_profile, profile_1)
+    difference_2 = compare_profiles(unknown_profile, profile_2)
+    if difference_1 < difference_2:
+        return str(profile_1["name"])
+    if difference_1 > difference_2:
+        return str(profile_2["name"])
+    if difference_1["name"] == difference_2["name"]:
+        return str([profile_1["name"], profile_2["name"]].sort()[0])
 
 
 def load_profile(path_to_file: str) -> dict | None:
