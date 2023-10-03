@@ -93,14 +93,13 @@ def compare_profiles(
     if "name" not in unknown_profile or "freq" not in unknown_profile \
         or "name" not in profile_to_compare or "freq" not in profile_to_compare:
         return None
-    all_letters = list(unknown_profile["freq"].keys()) + list(profile_to_compare["freq"].keys())
-    all_letters = set(all_letters)
+    all_letters = set(unknown_profile["freq"].keys()).union(set(profile_to_compare["freq"].keys()))
     language_1 = []
     language_2 = []
     for letter in all_letters:
         language_1.append(unknown_profile["freq"].get(letter, 0))
         language_2.append(profile_to_compare["freq"].get(letter, 0))
-    difference = round(calculate_mse(language_1, language_2), 3)
+    difference = calculate_mse(language_1, language_2)
     return difference
 def detect_language(
         unknown_profile: dict[str, str | dict[str, float]],
@@ -121,13 +120,13 @@ def detect_language(
     difference_2 = compare_profiles(unknown_profile, profile_2)
     name_1 = str(profile_1["name"])
     name_2 = str(profile_2["name"])
-    names = list(name_1, name_2).sort()
+    names = list[name_1, name_2]
     if isinstance(difference_1, float) and isinstance(difference_2, float):
         if difference_1 < difference_2:
             return name_1
         if difference_1 > difference_2:
             return name_2
-    return names[0]
+    return names.sort()[0]
 
 
 def load_profile(path_to_file: str) -> dict | None:
