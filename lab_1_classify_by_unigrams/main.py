@@ -14,8 +14,7 @@ def tokenize(text: str) -> list[str] | None:
     if not isinstance(text, str):
         return None
 
-    for element in text:
-        text = ''.join(element for element in text if element.isalpha())
+    text = ''.join(element for element in text if element.isalpha())
     letters = list(text.lower())
     return letters
 
@@ -52,9 +51,7 @@ def create_language_profile(language: str, text: str) -> dict[str, str | dict[st
     if not isinstance(text, str) or not isinstance(language, str):
         return None
     frequencies = calculate_frequencies(tokenize(text))
-    if isinstance(frequencies, dict):
-        return {'name': language, 'freq': frequencies}
-    return None
+    return {'name': language, 'freq': frequencies}
 
 
 def calculate_mse(predicted: list, actual: list) -> float | None:
@@ -101,6 +98,8 @@ def compare_profiles(
         language_2.append(profile_to_compare["freq"].get(letter, 0))
     difference = calculate_mse(language_1, language_2)
     return difference
+
+
 def detect_language(
         unknown_profile: dict[str, str | dict[str, float]],
         profile_1: dict[str, str | dict[str, float]],
@@ -126,11 +125,9 @@ def detect_language(
         if difference_1 > difference_2:
             return str(name_2)
         if difference_1 == difference_2:
-            if isinstance(name_1, str) and isinstance(name_2, str):
-                names = [name_1, name_2]
-                names.sort()
-                return names[0]
-    return None
+            names = [name_1, name_2]
+            names.sort()
+            return names[0]
 
 def load_profile(path_to_file: str) -> dict | None:
     """
