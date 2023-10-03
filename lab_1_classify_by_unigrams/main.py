@@ -130,6 +130,8 @@ def detect_language(
             names.sort()
             return names[0]
     return None
+
+
 def load_profile(path_to_file: str) -> dict | None:
     """
     Loads a language profile
