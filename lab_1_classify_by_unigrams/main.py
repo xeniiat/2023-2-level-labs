@@ -126,7 +126,7 @@ def detect_language(
         if difference_1 > difference_2:
             return str(name_2)
         if difference_1 == difference_2:
-            return str([profile_1['name'], profile_2['name']].sort()[0])
+            return str([name_1, name_2].sort()[0])
     return None
 
 def load_profile(path_to_file: str) -> dict | None:
