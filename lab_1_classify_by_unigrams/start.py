@@ -1,7 +1,8 @@
 """
 Language detection starter
 """
-from lab_1_classify_by_unigrams.main import create_language_profile, detect_language
+from lab_1_classify_by_unigrams.main import create_language_profile, detect_language,\
+    collect_profiles, detect_language_advanced, print_report
 
 
 def main() -> None:
@@ -24,13 +25,21 @@ def main() -> None:
         assert result, "Detection result is None"
 
 
-paths_to_profiles = ["assets/profiles/es.json",
-                     "assets/profiles/de.json",
-                     "assets/profiles/en.json",
-                     "assets/profiles/fr.json",
-                     "assets/profiles/it.json",
-                     "assets/profiles/ru.json",
-                     "assets/profiles/tr.json"]
+    paths_to_profiles = ["assets/profiles/es.json",
+                         "assets/profiles/de.json",
+                         "assets/profiles/en.json",
+                         "assets/profiles/fr.json",
+                         "assets/profiles/it.json",
+                         "assets/profiles/ru.json",
+                         "assets/profiles/tr.json"]
+
+    known_profiles = collect_profiles(paths_to_profiles)
+    if isinstance(unknown_profile, dict) and isinstance(known_profiles, list):
+        result = detect_language_advanced(unknown_profile, known_profiles)
+    if result:
+        print_report(result)
+
+    assert result, "Detection result is None"
 
 if __name__ == "__main__":
     main()
