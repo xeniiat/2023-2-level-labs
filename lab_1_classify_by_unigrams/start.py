@@ -24,5 +24,13 @@ def main() -> None:
         assert result, "Detection result is None"
 
 
+paths_to_profiles = ["assets/profiles/es.json",
+                     "assets/profiles/de.json",
+                     "assets/profiles/en.json",
+                     "assets/profiles/fr.json",
+                     "assets/profiles/it.json",
+                     "assets/profiles/ru.json",
+                     "assets/profiles/tr.json"]
+
 if __name__ == "__main__":
     main()
