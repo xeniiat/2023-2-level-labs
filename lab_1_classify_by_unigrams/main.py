@@ -4,6 +4,7 @@ Language detection
 """
 import json
 
+
 def tokenize(text: str) -> list[str] | None:
     """
     Splits a text into tokens, converts the tokens into lowercase,
@@ -209,6 +210,6 @@ def print_report(detections: list[tuple[str, float]]) -> None:
     """
     if not isinstance(detections, list):
         for detection in detections:
-           name = detection[0]
-           score = round(detection[1], 5)
-           print(f"{name}: MSE {score}")
+            name = detection[0]
+            score = round(detection[1], 5)
+            print(f"{name}: MSE {score}")
