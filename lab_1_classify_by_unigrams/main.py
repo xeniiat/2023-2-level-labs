@@ -207,8 +207,9 @@ def print_report(detections: list[tuple[str, float]]) -> None:
     Prints report for detection of language
     :param detections: a list with distances for each available language
     """
-    if isinstance(detections, list):
-        for detection in detections:
-            name = detection[0]
-            score = round(detection[1], 5)
-            print(f"{name}: MSE {score}")
+    if not isinstance(detections, list):
+        return None
+    for detection in detections:
+        name = detection[0]
+        score = round(detection[1], 5)
+        print(f"{name}: MSE {score}")
