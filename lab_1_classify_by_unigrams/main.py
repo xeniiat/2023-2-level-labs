@@ -213,4 +213,3 @@ def print_report(detections: list[tuple[str, float]]) -> None:
             name = detection[0]
             score = round(detection[1], 5)
             print(f"{name}: MSE {score}")
-
