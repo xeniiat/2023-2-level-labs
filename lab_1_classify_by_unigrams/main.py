@@ -140,8 +140,9 @@ def load_profile(path_to_file: str) -> dict | None:
         return None
     with open(path_to_file, "r", encoding="utf-8") as file_to_read:
         language_profile = json.load(file_to_read)
-    return language_profile
-
+    if isinstance(language_profile, dict):
+        return language_profile
+    return None
 
 def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     """
@@ -161,8 +162,8 @@ def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
                 freq_dict[gramm.lower()] = profile["freq"][gramm] / total_number
             else:
                 freq_dict[gramm.lower()] += profile["freq"][gramm] / total_number
-    preprocess_profile = {"name": profile["name"], "freq": freq_dict}
-    return preprocess_profile
+    preprocessed_profile = {"name": profile["name"], "freq": freq_dict}
+    return preprocessed_profile
 
 
 def collect_profiles(paths_to_profiles: list) -> list[dict[str, str | dict[str, float]]] | None:

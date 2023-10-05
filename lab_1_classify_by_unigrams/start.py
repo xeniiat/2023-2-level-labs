@@ -34,11 +34,11 @@ def main() -> None:
                          "assets/profiles/tr.json"]
 
     known_profiles = collect_profiles(paths_to_profiles)
+    unknown_profile = create_language_profile("unknown", unknown_text)
     if isinstance(unknown_profile, dict) and isinstance(known_profiles, list):
         result = detect_language_advanced(unknown_profile, known_profiles)
-    if result:
+    if isinstance(result, list):
         print_report(result)
-
     assert result, "Detection result is None"
 
 if __name__ == "__main__":
