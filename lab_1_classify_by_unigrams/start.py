@@ -30,8 +30,7 @@ def main() -> None:
         return None
     result = detect_language_advanced(unknown_profile, known_profiles)
     if result:
-        print_report(result)
-        return None
+        return print_report(result)
     assert result, "Detection result is None"
 
 
