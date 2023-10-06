@@ -29,9 +29,9 @@ def main() -> None:
     if not isinstance(unknown_profile, dict) or not isinstance(known_profiles, list):
         return None
     result = detect_language_advanced(unknown_profile, known_profiles)
-    if isinstance(result, list):
+    if result:
         print_report(result)
-    return None
+
     assert result, "Detection result is None"
 
 
