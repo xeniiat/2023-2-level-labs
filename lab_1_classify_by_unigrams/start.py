@@ -26,11 +26,12 @@ def main() -> None:
 
     known_profiles = collect_profiles(paths_to_profiles)
     unknown_profile = create_language_profile("unknown", unknown_text)
-    if not isinstance(unknown_profile, dict) and not isinstance(known_profiles, list):
+    if not isinstance(unknown_profile, dict) or not isinstance(known_profiles, list):
         return None
     result = detect_language_advanced(unknown_profile, known_profiles)
-    if result:
-        print_report(result)
+    if not isinstance(result, list):
+        return None
+    print_report(result)
     assert result, "Detection result is None"
 
 
