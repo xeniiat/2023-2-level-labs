@@ -50,9 +50,10 @@ def create_language_profile(language: str, text: str) -> dict[str, str | dict[st
     if not isinstance(text, str) or not isinstance(language, str):
         return None
     frequencies = calculate_frequencies(tokenize(text))
-    if isinstance(frequencies, dict):
-        return {'name': language, 'freq': frequencies}
-    return None
+    if not isinstance(frequencies, dict):
+        return None
+    return {'name': language, 'freq': frequencies}
+
 
 def calculate_mse(predicted: list, actual: list) -> float | None:
     """
@@ -119,16 +120,17 @@ def detect_language(
     difference_2 = compare_profiles(unknown_profile, profile_2)
     name_1 = str(profile_1["name"])
     name_2 = str(profile_2["name"])
-    if isinstance(difference_1, float) and isinstance(difference_2, float):
-        if difference_1 < difference_2:
-            return str(name_1)
-        if difference_1 > difference_2:
-            return str(name_2)
-        if difference_1 == difference_2:
-            names = [name_1, name_2]
-            names.sort()
-            return names[0]
-    return None
+    if not isinstance(difference_1, float) or not isinstance(difference_2, float):
+        return None
+    if difference_1 < difference_2:
+        return str(name_1)
+    if difference_1 > difference_2:
+        return str(name_2)
+    if difference_1 == difference_2:
+        names = [name_1, name_2]
+        names.sort()
+        return names[0]
+
 
 
 def load_profile(path_to_file: str) -> dict | None:
@@ -141,9 +143,10 @@ def load_profile(path_to_file: str) -> dict | None:
         return None
     with open(path_to_file, "r", encoding="utf-8") as file_to_read:
         language_profile = json.load(file_to_read)
-    if isinstance(language_profile, dict):
-        return language_profile
-    return None
+    if not isinstance(language_profile, dict):
+        return None
+    return language_profile
+
 
 def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     """
