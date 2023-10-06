@@ -126,7 +126,10 @@ def detect_language(
         return name_1
     if difference_1 > difference_2:
         return name_2
-    return [name_1, name_2].sort()[0]
+    if name_1 is not None and name_2 is not None:
+        name = [name_1, name_2]
+        name = str(name.sort()[0])
+    return name
 
 
 
@@ -158,7 +161,7 @@ def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     freq_dict = {}
     total_number = profile["n_words"][0]
     for gramm in profile["freq"]:
-        if len(gramm) == 1:
+        if len(gramm) == 1  and (gramm.isalpha() or gramm == '²'):
             if gramm.lower() not in freq_dict:
                 freq_dict[gramm.lower()] = profile["freq"][gramm] / total_number
             else:
