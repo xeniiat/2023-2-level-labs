@@ -37,9 +37,6 @@ def calculate_frequencies(tokens: list[str] | None) -> dict[str, float] | None:
     return freq_dic
 
 
-
-
-
 def create_language_profile(language: str, text: str) -> dict[str, str | dict[str, float]] | None:
     """
     Creates a language profile
@@ -73,9 +70,6 @@ def calculate_mse(predicted: list, actual: list) -> float | None:
     return mse
 
 
-
-
-
 def compare_profiles(
         unknown_profile: dict[str, str | dict[str, float]],
         profile_to_compare: dict[str, str | dict[str, float]]
@@ -89,7 +83,7 @@ def compare_profiles(
     if not isinstance(unknown_profile, dict) or not isinstance(profile_to_compare, dict):
         return None
     if "name" not in unknown_profile or "freq" not in unknown_profile \
-        or "name" not in profile_to_compare or "freq" not in profile_to_compare:
+            or "name" not in profile_to_compare or "freq" not in profile_to_compare:
         return None
     all_letters = set(unknown_profile["freq"].keys()).union(set(profile_to_compare["freq"].keys()))
     language_1 = []
@@ -114,7 +108,7 @@ def detect_language(
     :return: a language
     """
     if not isinstance(unknown_profile, dict) or not isinstance(profile_1, dict)\
-        or not isinstance(profile_2, dict):
+            or not isinstance(profile_2, dict):
         return None
     difference_1 = compare_profiles(unknown_profile, profile_1)
     difference_2 = compare_profiles(unknown_profile, profile_2)
@@ -147,9 +141,6 @@ def load_profile(path_to_file: str) -> dict | None:
     return language_profile
 
 
-
-
-
 def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     """
     Preprocesses profile for a loaded language
@@ -158,7 +149,7 @@ def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     with relative frequencies without unnecessary ngrams
     """
     if not isinstance(profile, dict) or "name" not in profile.keys()\
-        or "freq" not in profile.keys() or "n_words" not in profile.keys():
+            or "freq" not in profile.keys() or "n_words" not in profile.keys():
         return None
     freq_dict = {}
     total_number = profile["n_words"][0]

@@ -16,7 +16,6 @@ def main() -> None:
     with open("assets/texts/unknown.txt", "r", encoding="utf-8") as file_to_read_unk:
         unknown_text = file_to_read_unk.read()
 
-
     paths_to_profiles = ["assets/profiles/es.json",
                          "assets/profiles/de.json",
                          "assets/profiles/en.json",
@@ -27,12 +26,13 @@ def main() -> None:
 
     known_profiles = collect_profiles(paths_to_profiles)
     unknown_profile = create_language_profile("unknown", unknown_text)
-    if not isinstance(unknown_profile, dict) and isinstance(known_profiles, list):
+    if not isinstance(unknown_profile, dict) and not isinstance(known_profiles, list):
         return None
     result = detect_language_advanced(unknown_profile, known_profiles)
     if isinstance(result, list):
         print_report(result)
     assert result, "Detection result is None"
+
 
 if __name__ == "__main__":
     main()
