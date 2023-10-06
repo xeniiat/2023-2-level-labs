@@ -128,7 +128,8 @@ def detect_language(
     if difference_1 > difference_2:
         return name_2
     if difference_1 == difference_2:
-        return [name_1, name_2].sort()[0]
+        names = [name_1, name_2]
+        return str(names.sort()[0])
     return None
 
 
