@@ -147,6 +147,9 @@ def load_profile(path_to_file: str) -> dict | None:
     return language_profile
 
 
+
+
+
 def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     """
     Preprocesses profile for a loaded language
@@ -162,9 +165,9 @@ def preprocess_profile(profile: dict) -> dict[str, str | dict] | None:
     for gramm in profile["freq"]:
         if len(gramm) == 1 and (gramm.isalpha() or gramm == '²'):
             if gramm.lower() not in freq_dict:
-                freq_dict[gramm.lower()] = profile["freq"][gramm] / total_number
-            elif gramm.lower() in freq_dict:
-                freq_dict[gramm.lower()] += profile["freq"][gramm] / total_number
+                freq_dict[gramm.lower()] = 0
+            freq_dict[gramm.lower()] += profile["freq"][gramm] / total_number
+
     preprocessed_profile = {"name": profile["name"], "freq": freq_dict}
     return preprocessed_profile
 
@@ -204,6 +207,7 @@ def detect_language_advanced(unknown_profile: dict[str, str | dict[str, float]],
         mse_value = compare_profiles(profile, unknown_profile)
         detected_language.append((profile["name"], mse_value))
     detected_language.sort(key=lambda x: (x[1], x[0]))
+
     return detected_language
 
 
