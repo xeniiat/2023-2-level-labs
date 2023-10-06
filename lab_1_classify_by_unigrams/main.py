@@ -180,10 +180,12 @@ def collect_profiles(paths_to_profiles: list) -> list[dict[str, str | dict[str, 
     processed_profiles = []
     for path in paths_to_profiles:
         language_profile = load_profile(path)
-        if isinstance(language_profile, dict):
-            processed_profile = preprocess_profile(language_profile)
-            if isinstance(processed_profile, dict):
-                processed_profiles += [processed_profile]
+        if not isinstance(language_profile, dict):
+            return None
+        processed_profile = preprocess_profile(language_profile)
+        if not isinstance(processed_profile, dict):
+            return None
+        processed_profiles += [processed_profile]
     return processed_profiles
 
 
@@ -211,7 +213,8 @@ def print_report(detections: list[tuple[str, float]]) -> None:
     :param detections: a list with distances for each available language
     """
     if not isinstance(detections, list):
-        for detection in detections:
-            name = detection[0]
-            score = round(detection[1], 5)
-            print(f"{name}: MSE {score}")
+        return None
+    for detection in detections:
+        name = detection[0]
+        score = detection[1]
+        print(f"{name}: MSE {score:.5f}")
