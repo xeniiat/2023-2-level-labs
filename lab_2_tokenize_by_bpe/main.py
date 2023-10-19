@@ -27,6 +27,7 @@ def prepare_word(
     return tuple(tokens_list)
 
 
+
 def collect_frequencies(
     text: str, start_of_word: str | None, end_of_word: str
 ) -> dict[tuple[str, ...], int] | None:
