@@ -15,8 +15,8 @@ def main() -> None:
     result = None
     assert result, "Encoding is not working"
 
-    collect_frequencies(text, None, '</s>')
-
+    freq_dictionary = collect_frequencies(text, None, '</s>')
+    print(freq_dictionary)
 
 
 if __name__ == "__main__":
