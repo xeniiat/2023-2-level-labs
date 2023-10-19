@@ -17,5 +17,7 @@ def main() -> None:
 
     freq_dictionary = collect_frequencies(text, None, '</s>')
     print(freq_dictionary)
+
+
 if __name__ == "__main__":
     main()
