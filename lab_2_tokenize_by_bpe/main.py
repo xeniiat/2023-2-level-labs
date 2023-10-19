@@ -37,8 +37,8 @@ def collect_frequencies(
     :param end_of_word: a token that signifies the end of word
     :return: dictionary in the form of <preprocessed word: number of occurrences>
     """
-    if not isinstance(text, str) \
-            or not (isinstance(start_of_word, str) or start_of_word is None) \
+    if not isinstance(text, str)\
+            or not (isinstance(start_of_word, str) or start_of_word is None)\
             or not isinstance(end_of_word, str):
         return None
     freq_dict = {}
