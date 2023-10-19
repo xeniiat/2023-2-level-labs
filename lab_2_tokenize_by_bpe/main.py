@@ -16,6 +16,7 @@ def prepare_word(
     """
 
 
+
 def collect_frequencies(
     text: str, start_of_word: str | None, end_of_word: str
 ) -> dict[tuple[str, ...], int] | None:
