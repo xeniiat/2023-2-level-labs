@@ -91,7 +91,7 @@ def merge_tokens(
         for index in range(len(word) - 1):
             if (word[index], word[index + 1]) == pair:
                 tokens[index] = str(pair[0] + pair[1])
-                tokens.pop(index+1)
+                tokens.pop(index + 1)
         new_freq_dict[tuple(tokens)] = frequency
     return new_freq_dict
 
