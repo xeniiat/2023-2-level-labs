@@ -2,6 +2,8 @@
 Lab 2
 BPE and machine translation evaluation
 """
+import json
+import math
 
 
 def prepare_word(
@@ -105,6 +107,28 @@ def train(
     :param num_merges: required number of new tokens
     :return: dictionary in the form of <preprocessed word: number of occurrences>
     """
+    if not isinstance(word_frequencies, dict)\
+            or not isinstance(num_merges, int):
+        return None
+    pair_tokens = count_tokens_pairs(word_frequencies)
+    if not pair_tokens:
+        return None
+    merges = min(num_merges, len(pair_tokens))
+    for i in range(merges):
+        max_occurence = max(pair_tokens.values())
+        pairs_with_max_occurence = [pair for pair, frequency in pair_tokens.items() if frequency == max_occurence]
+        max_length = 0
+        for pair in pairs_with_max_occurence:
+            if len(str(pair)) > max_length:
+                max_length = len(str(pair))
+        pairs_with_max_length = [pair for pair in pairs_with_max_occurence if len(str(pair)) == max_length]
+        word_frequencies = merge_tokens(word_frequencies, sorted(pairs_with_max_length)[0])
+        if not word_frequencies:
+            return None
+        pair_tokens = count_tokens_pairs(word_frequencies)
+        if not pair_tokens:
+            return None
+    return word_frequencies
 
 
 def get_vocabulary(
@@ -116,6 +140,18 @@ def get_vocabulary(
     :param unknown_token: a token to signify an unknown token
     :return: dictionary in the form of <token: identifier>
     """
+    if not isinstance(word_frequencies, dict)\
+            or not isinstance(unknown_token, str):
+        return None
+    unique_tokens = set()
+    for tuple_tokens in word_frequencies.keys():
+        for word in tuple_tokens:
+            unique_tokens.update(tuple_tokens, word)
+    unique_tokens.add(unknown_token)
+    sorted_tokens = sorted(sorted(unique_tokens), key=len, reverse=True)
+    dict_identifiers = {token: id for id, token in enumerate(sorted_tokens)}
+    return dict_identifiers
+
 
 
 def decode(
@@ -128,6 +164,17 @@ def decode(
     :param end_of_word_token: an end-of-word token
     :return: decoded sequence
     """
+    if not isinstance(encoded_text, list) or not isinstance(vocabulary, dict)\
+            or not (isinstance(end_of_word_token, str) or end_of_word_token is None):
+        return None
+    decoded_text = ''
+    for identifier in encoded_text:
+        token_list = [key for key, value in vocabulary.items() if value == identifier]
+        for token in token_list:
+            decoded_text += token
+    if not end_of_word_token is None:
+        decoded_text = decoded_text.replace(end_of_word_token, ' ')
+    return decoded_text
 
 
 def tokenize_word(
