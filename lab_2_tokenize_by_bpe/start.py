@@ -23,5 +23,6 @@ def main() -> None:
         print(result)
         assert result, "Encoding is not working"
 
+
 if __name__ == "__main__":
     main()

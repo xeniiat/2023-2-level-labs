@@ -153,7 +153,6 @@ def get_vocabulary(
     return dict_identifiers
 
 
-
 def decode(
     encoded_text: list[int] | None, vocabulary: dict[str, int] | None, end_of_word_token: str | None
 ) -> str | None:
