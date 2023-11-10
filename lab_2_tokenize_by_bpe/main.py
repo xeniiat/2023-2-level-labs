@@ -47,10 +47,9 @@ def collect_frequencies(
         tokens_tuple = prepare_word(word, start_of_word, end_of_word)
         if tokens_tuple is None:
             return None
-        if tokens_tuple in freq_dict:
-            freq_dict[tokens_tuple] += 1
-            continue
-        freq_dict[tokens_tuple] = 1
+        if tokens_tuple not in freq_dict:
+            freq_dict[tokens_tuple] = 0
+        freq_dict[tokens_tuple] += 1
     return freq_dict
 
 
