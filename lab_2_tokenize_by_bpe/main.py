@@ -2,7 +2,6 @@
 Lab 2
 BPE and machine translation evaluation
 """
-import math
 
 
 def prepare_word(
